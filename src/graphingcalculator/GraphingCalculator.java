@@ -39,13 +39,17 @@ public class GraphingCalculator {
 
         coordinatesChanged();
 
-        // canvas.animate(() -> setAnimationParameter(
-        // getAnimationParameter() + 0.01));
+        animating = true;
+
+        canvas.animate(() -> {
+            if (animating) {
+                setAnimationParameter(getAnimationParameter() + 0.01);
+            }
+        });
 
         canvas.onDrag(event -> setAnimationParameter(
             event.getDelta().getX() / width + getAnimationParameter()));
 
-           
 
         zoomIn = new Button("zoomIn");
         zoomOut = new Button("zoomOut");
@@ -60,8 +64,8 @@ public class GraphingCalculator {
         zoomIn.onClick(() -> setScale(getScale() * 1.5));
         zoomOut.onClick(() -> setScale(getScale() / 1.5));
 
-        canvas.onMouseDown(event -> animating =  false);
-         canvas.onMouseUp(event -> animating =  true);
+        canvas.onMouseDown(event -> animating = false);
+        canvas.onMouseUp(event -> animating = true);
 
     }
 
